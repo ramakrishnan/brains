@@ -28,15 +28,29 @@ let buildObject = (element) => {
                 childObjects.push(buildObject(childNode));
             }
         }
-        return { type: element.nodeName, props: {}, children: childObjects }
+        return { type: element.nodeName, props: elementProperties(element), children: childObjects }
     }
+}
+
+let elementProperties = (element) => {
+    let props = {};
+    let attributes = element.attributes;
+    for(let i = 0; i < attributes.length ; i++) {
+        let data = attributes[i];
+        props[data.name] = data.value;
+    }
+    return props;
 }
 
 let createElement = (node) => {
     if (typeof node === 'string') {
         return document.createTextNode(node);
     }
+    
     const $el = document.createElement(node.type);
+    for(let prop in node.props) {
+        $el.setAttribute(prop, node.props[prop]);
+    }
     node.children
         .map(createElement)
         .forEach($el.appendChild.bind($el));

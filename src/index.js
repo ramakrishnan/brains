@@ -5,6 +5,7 @@ module.exports = function() {
     // var sampleTemplate = require('./template/list-1.html.hbs')({ name: 'Ram' });
     let $root = document.getElementById('root');
     vdom.updateDOM($root, sampleTemplate);
+    $root.querySelector('#sec').innerHTML = '<h2> DO NOT CHANGE THIS </h3>'
     setTimeout(() => {
         let $root = document.getElementById('root');
         var sampleTemplate2 = require('./template/sample_2.html.hbs')({ name: 'Ram-VDOM' });
