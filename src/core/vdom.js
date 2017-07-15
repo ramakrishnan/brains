@@ -4,7 +4,12 @@ module.exports = () => {
         updateDOM: ($root, template) => {
             let dom = document.createElement('div');
             dom.innerHTML = template;
-            let domObj = buildObject(document.createTreeWalker(dom.firstChild, NodeFilter.SHOW_ELEMENT, null, true).root);
+            let firstChild = dom.firstChild;
+            let domWalker = [];
+            if (firstChild) {
+                domWalker = document.createTreeWalker(firstChild, NodeFilter.SHOW_ELEMENT, null, true).root;
+            }
+            let domObj = buildObject(domWalker);
             if (masterObj) {
                 updateElement($root.firstChild, domObj, masterObj);
             } else {
